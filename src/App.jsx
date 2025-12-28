@@ -94,7 +94,7 @@ function App() {
       <div className="quran-page">
         {loading && <div className="loading">Loading...</div>}
         {error && <div className="error">{error}</div>}
-        {pageData && pageData.verses && (
+        {page1 && page1.verses && pageData && pageData.verses && (
           <div className="verses">
             {pageData.verses.map((verse, idx) => {
               const verseNumber = verse.verse_key.split(":").pop()
