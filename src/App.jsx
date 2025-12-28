@@ -7,7 +7,7 @@ function App() {
   const [page1, setPage1] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [fatihaActive, setFatihaActive] = useState(true)
+  const [fatihaActive, setFatihaActive] = useState(false)
 
 
   useEffect(() => {
