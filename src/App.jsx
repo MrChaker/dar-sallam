@@ -60,11 +60,10 @@ function App() {
 
       <div className="navigation">
         <button onClick={goToPreviousPage} disabled={pageNumber === 1}>
-          Previous Page
+          السابق
         </button>
-
         <div className="page-selector">
-          <label>Page: </label>
+          <label>الصفحة: </label>
           <input
             type="number"
             min="1"
@@ -74,9 +73,8 @@ function App() {
           />
           <span> / 604</span>
         </div>
-
         <button onClick={goToNextPage} disabled={pageNumber === 604}>
-          Next Page
+          التالي
         </button>
       </div>
       <div style={{ display: "flex", alignItems: "center", justifyContent: "center", margin: "1rem 0" }}>
