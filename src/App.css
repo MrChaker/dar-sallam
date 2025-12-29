@@ -127,9 +127,6 @@
 }
 
 .popup {
-  position: absolute;
-  top: -30%;
-  right: 0;
   background: #f7fafc;
   border: 1px solid #667eea;
   border-radius: 10px;
@@ -137,6 +134,9 @@
   padding: 0px 11px;
   white-space: nowrap;
   font-size: 12px;
+  width: fit-content;
+  display: inline;
+  margin-left: 10px;
 }
 
 .verse-text {
