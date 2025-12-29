@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 
 function App() {
-  const [pageNumber, setPageNumber] = useState(1)
+  const [pageNumber, setPageNumber] = useState(2)
   const [pageData, setPageData] = useState(null)
   const [page1, setPage1] = useState(null)
   const [loading, setLoading] = useState(true)
