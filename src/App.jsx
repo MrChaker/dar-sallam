@@ -96,16 +96,19 @@ function App() {
               const verseNumber = verse.verse_key.split(":").pop()
               const fatihaVerse = page1.verses[(verseNumber - 1) % page1.verses.length].text_uthmani
               return (
-                <div onMouseEnter={() => setHoveredVerse(verse.verse_key)} onMouseOut={() => setHoveredVerse(null)} key={verse.id} className="verse">
+                <>
                   {
                     fatihaActive &&
                     <div onMouseEnter={() => setHoveredVerse(verse.verse_key)} className='popup'>
                       <span className="verse-text">{fatihaVerse}</span>
                     </div>
                   }
-                  <span className="verse-text">{verse.text_uthmani}</span>
-                  <span className="verse-number">﴿{verse.verse_key.split(":").pop()}﴾</span>
-                </div>
+                  <div onMouseEnter={() => setHoveredVerse(verse.verse_key)} onMouseOut={() => setHoveredVerse(null)} key={verse.id} className="verse">
+
+                    <span className="verse-text">{verse.text_uthmani}</span>
+                    <span className="verse-number">﴿{verse.verse_key.split(":").pop()}﴾</span>
+                  </div>
+                </>
               )
             })}
         </div>

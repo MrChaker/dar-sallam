@@ -169,13 +169,12 @@
   }
 
   .quran-page {
-    margin: 1rem;
-    padding: 1.5rem;
+    margin: 0.5rem;
+    padding: 0;
   }
 
   .verses {
     font-size: 1.2rem;
-    line-height: 5.5;
   }
 
   .popup {
@@ -191,11 +190,10 @@
 @media (max-width: 768px) {
   .verses {
     font-size: 1.2rem;
-    line-height: 3.5;
+    padding: 1rem;
   }
 
   .popup {
-    line-height: 2.5;
     top: -50%;
   }
 }
