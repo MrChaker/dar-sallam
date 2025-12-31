@@ -162,6 +162,14 @@
   opacity: 0.9;
 }
 
+.surah-box {
+  text-align: center;
+  border: 1px solid #667eea;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px rgba(102, 126, 234, 0.15);
+  margin: 1rem 0;
+}
+
 @media (max-width: 768px) {
   .navigation {
     gap: 1rem;

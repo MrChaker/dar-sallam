@@ -1,36 +1,19 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import { quranApi } from './utils/api'
 
 function App() {
   const [pageNumber, setPageNumber] = useState(2)
   const [pageData, setPageData] = useState(null)
   const [page1, setPage1] = useState(null)
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
   const [fatihaActive, setFatihaActive] = useState(true)
 
-
   useEffect(() => {
-    fetchPage(pageNumber)
+    quranApi.getByPage(pageNumber)
       .then((data) => setPageData(data))
-    fetchPage(1)
+    quranApi.getByPage(1)
       .then((data) => setPage1(data))
   }, [pageNumber])
-
-  const fetchPage = async (page) => {
-    setLoading(true)
-    setError(null)
-    try {
-      // Using Quran.com API - a trusted source
-      const response = await fetch(`https://api.quran.com/api/v4/quran/verses/uthmani?page_number=${page}`)
-      const data = await response.json()
-      setLoading(false)
-      return data
-    } catch (err) {
-      setError('Failed to load Quran page')
-      setLoading(false)
-    }
-  }
 
   const goToNextPage = () => {
     if (pageNumber < 604) {
@@ -91,26 +74,38 @@ function App() {
 
       <div className="quran-page">
         <div className="verses">
-          {page1 && page1.verses && pageData && pageData.verses &&
-            pageData.verses.map((verse, idx) => {
-              const verseNumber = verse.verse_key.split(":").pop()
-              const fatihaVerse = page1.verses[(verseNumber - 1) % page1.verses.length].text_uthmani
-              return (
-                <>
-                  {
-                    fatihaActive &&
-                    <div onMouseEnter={() => setHoveredVerse(verse.verse_key)} className='popup'>
-                      <span className="verse-text">{fatihaVerse}</span>
-                    </div>
-                  }
-                  <div onMouseEnter={() => setHoveredVerse(verse.verse_key)} onMouseOut={() => setHoveredVerse(null)} key={verse.id} className="verse">
-
-                    <span className="verse-text">{verse.text_uthmani}</span>
-                    <span className="verse-number">﴿{verse.verse_key.split(":").pop()}﴾</span>
-                  </div>
-                </>
-              )
-            })}
+          {page1 && pageData &&
+            Object.keys(pageData).map((surah) => (
+              <>
+                {
+                  pageData[surah].map((verse) => {
+                    const verseNumber = verse.numberInSurah
+                    const fatihaVerse = page1['1'][(verseNumber - 1) % page1['1'].length].text
+                    return (
+                      <>
+                        {
+                          verse.numberInSurah == 1 &&
+                          <div className='surah-box'>
+                            {verse.surah.name}
+                          </div>
+                        }
+                        {
+                          fatihaActive &&
+                          <div className='popup'>
+                            <span className="verse-text">{fatihaVerse}</span>
+                          </div>
+                        }
+                        <div key={verse.number} className="verse">
+                          <span className="verse-text">{verse.numberInSurah == 1 ? verse.text.slice(40) : verse.text}</span>
+                          <span className="verse-number">﴿{verse.number}﴾</span>
+                        </div>
+                      </>
+                    )
+                  })
+                }
+              </>
+            ))
+          }
         </div>
       </div>
 
