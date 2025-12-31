@@ -19,8 +19,8 @@ export const quranApi = {
 
   search: async (query) => {
     // const response = await api.get(`/search/${query}`);
-    const data = localStorage.getItem("quran-data");
-    if (!data) return [];
+    let data = localStorage.getItem("quran-data");
+    if (!data) data = await quranApi.getAll();
     const results = [];
     const { surahs } = JSON.parse(data);
     surahs.forEach((surah) => {
