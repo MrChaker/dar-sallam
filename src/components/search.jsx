@@ -1,6 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import { quranApi } from '../utils/api'
+import './search.css'
 
 export const Search = ({
   setPageNumber,
@@ -45,8 +46,8 @@ export const Search = ({
         value={searchQuery || ""}
         onChange={(e) => setSearchQuery(e.target.value)}
       />
-      {searchLoading && <div style={{ padding: '1rem', textAlign: 'center' }}>جاري البحث...</div>}
-      {searchError && <div style={{ padding: '1rem', color: 'red', textAlign: 'center' }}>{searchError}</div>}
+      {searchLoading && <div className="search-loading">جاري البحث...</div>}
+      {searchError && <div className="search-error">{searchError}</div>}
       {!searchLoading && !searchError && searchResults.length > 0 && (
         <div className="search-results">
           {searchResults.map((result, index) => (
@@ -54,10 +55,10 @@ export const Search = ({
               setPageNumber(result.page)
               setHighlightedVerse(result.number)
               setSearchQuery("")
-            }} key={index} className="search-result-item" style={{ padding: '0.5rem', margin: '0.5rem 0', borderBottom: '1px solid #ddd', cursor: "pointer" }}>
+            }} key={index} className="search-result-item">
               {result.text && <div className="verse-text">{result.text}</div>}
               {result.surah && result.number && (
-                <div style={{ fontSize: '0.9rem', color: '#666', marginTop: '0.25rem' }}>
+                <div className="search-result-surah-info">
                   {result.surah} - آية {result.numberInSurah}
                 </div>
               )}

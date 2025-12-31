@@ -39,6 +39,21 @@ export const quranApi = {
     });
     return results;
   },
+
+  getSurahs: async () => {
+    let data = localStorage.getItem("quran-data");
+    if (!data) data = await quranApi.getAll();
+    if (!data) return { text: "NETWORK ERROR" };
+    const results = [];
+    const { surahs } = JSON.parse(data);
+    surahs.forEach((surah) => {
+      results.push({
+        name: surah.name,
+        page: surah.ayahs[0].page,
+      });
+    });
+    return results;
+  },
 };
 
 /**

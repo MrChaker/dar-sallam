@@ -1,0 +1,12 @@
+.surah-selector {
+  padding: 0.5rem;
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  width: 25%;
+  max-width: 300px;
+  text-align: right;
+  direction: rtl;
+  background: #fff;
+  border: 1px solid #667eea;
+  border-radius: 10px;
+}

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import './App.css'
 import { quranApi } from './utils/api'
 import { Search } from './components/search'
+import SurahSelector from './components/surah-selector'
 
 function App() {
   const [pageNumber, setPageNumber] = useState(2)
@@ -67,13 +68,13 @@ function App() {
           التالي
         </button>
       </div>
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", margin: "1rem 0" }}>
-        <label style={{ fontSize: "1rem", fontWeight: 600, marginRight: "0.5rem" }}>
+      <div className="fatiha-toggle-container">
+        <label className="fatiha-toggle-label">
           <input
             type="checkbox"
+            className="fatiha-toggle-checkbox"
             checked={fatihaActive}
             onChange={() => setFatihaActive(!fatihaActive)}
-            style={{ marginRight: "0.3rem" }}
           />
           تفعيل ايات الفاتحة
         </label>
@@ -82,10 +83,14 @@ function App() {
 
 
       <div className="quran-page">
-        <Search setPageNumber={setPageNumber} setHighlightedVerse={setHighlightedVerse} />
+
+        <div className="filters">
+          <Search setPageNumber={setPageNumber} setHighlightedVerse={setHighlightedVerse} />
+          <SurahSelector setPageNumber={setPageNumber} />
+        </div>
 
         {loading && (
-          <div className="loading-text" style={{ textAlign: "center", margin: "1rem", fontWeight: "bold" }}>
+          <div className="loading-text">
             جاري التحميل...
           </div>
         )}
@@ -111,10 +116,7 @@ function App() {
                             <span className="verse-text">{fatihaVerse}</span>
                           </div>
                         }
-                        <div key={verse.number} className="verse"
-                          style={{
-                            color: highlightedVerse == verse.number ? "red" : undefined
-                          }}>
+                        <div key={verse.number} className={`verse ${highlightedVerse == verse.number ? 'highlighted' : ''}`}>
                           <span className="verse-text">{verse.numberInSurah == 1 ? verse.text.slice(40) : verse.text}</span>
                           <span className="verse-number">﴿{verse.numberInSurah}﴾</span>
                         </div>

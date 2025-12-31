@@ -177,16 +177,52 @@
   display: flex;
   flex-direction: column;
   direction: rtl;
+  width: 75%;
 }
 
 .search input {
-  width: 350px;
   font-size: 1rem;
   border-radius: 8px;
   padding: 0.75rem;
   border: 1.5px solid #667eea;
   outline: none;
   direction: rtl;
+}
+
+.fatiha-toggle-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.fatiha-toggle-label {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-right: 0.5rem;
+}
+
+.fatiha-toggle-checkbox {
+  margin-right: 0.3rem;
+}
+
+.filters {
+  display: flex;
+  direction: rtl;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 1rem;
+}
+
+.loading-text {
+  text-align: center;
+  margin: 1rem;
+  font-weight: bold;
+}
+
+.verse.highlighted {
+  color: red;
 }
 
 @media (max-width: 768px) {
@@ -202,25 +238,18 @@
 
   .verses {
     font-size: 1.2rem;
-  }
-
-  .popup {
-    line-height: 2.5;
-    top: 50%;
-  }
-
-  .header h1 {
-    font-size: 2rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .verses {
-    font-size: 1.2rem;
     padding: 1rem;
   }
 
   .popup {
     top: -50%;
+  }
+
+  .header h1 {
+    font-size: 2rem;
+  }
+
+  .filters {
+    flex-direction: column;
   }
 }
