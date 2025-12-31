@@ -86,16 +86,12 @@
 }
 
 .quran-page {
-  flex: 1;
   max-width: 1000px;
-  margin: 2rem auto;
-  padding: 1rem;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  min-height: 500px;
+  margin: auto;
+
   display: flex;
   flex-direction: column;
+  align-items: end;
 }
 
 .loading,
@@ -111,6 +107,13 @@
 }
 
 .verses {
+  margin: 2rem auto;
+  padding: 1rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  min-height: 500px;
+
   text-align: right;
   direction: rtl;
   line-height: 3;
@@ -168,6 +171,22 @@
   border-radius: 10px;
   box-shadow: 0 4px 24px rgba(102, 126, 234, 0.15);
   margin: 1rem 0;
+}
+
+.search {
+  display: flex;
+  flex-direction: column;
+  direction: rtl;
+}
+
+.search input {
+  width: 350px;
+  font-size: 1rem;
+  border-radius: 8px;
+  padding: 0.75rem;
+  border: 1.5px solid #667eea;
+  outline: none;
+  direction: rtl;
 }
 
 @media (max-width: 768px) {

@@ -6,39 +6,39 @@ const api = axios.create({
 
 // Initialize the client
 export const quranApi = {
-  // getByPage: async (pageNumber) => {
-  //   const pageVerses = await axios.get(
-  //     "https://api.quran.com/api/v4/quran/verses/uthmani",
-  //     {
-  //       params: {
-  //         page_number: pageNumber,
-  //       },
-  //     }
-  //   );
-  //   const mapped = pageVerses.data.verses.map(async (verse) => {
-  //     const [surahId, verseId] = verse.verse_key.split(":");
-  //     const surah = await quranApi.getSurah(surahId);
-  //     return {
-  //       surah: {
-  //         id: surahId,
-  //         name: surah.name,
-  //       },
-  //       verse: {
-  //         id: verseId,
-  //         text: verse.text_uthmani,
-  //       },
-  //     };
-  //   });
-  //   return groupBy(mapped, (item) => item.surah.id);
-  // },
+  getAll: async () => {
+    const data = localStorage.getItem("quran-data");
+    if (data) return data;
+    const response = await api.get(`/quran/ar`);
+    localStorage.setItem("quran-data", JSON.stringify(response.data.data));
+  },
   getByPage: async (pageNumber) => {
     const response = await api.get(`/page/${pageNumber}`);
-
     return groupBy(response.data.data.ayahs, (item) => item.surah.number);
   },
-  getSurah: async (id) => {
-    const response = await api.get(`/surah/${id}`);
-    return response.data;
+
+  search: async (query) => {
+    // const response = await api.get(`/search/${query}`);
+    const data = localStorage.getItem("quran-data");
+    if (!data) return [];
+    const results = [];
+    const { surahs } = JSON.parse(data);
+    surahs.forEach((surah) => {
+      surah.ayahs.forEach((ayah) => {
+        if (
+          ayah.text.includes(query) ||
+          removeArabicTashkeel(ayah.text).includes(query)
+        ) {
+          results.push({
+            ...ayah,
+            surah: surah.name,
+          });
+        }
+      });
+    });
+    console.log(results);
+
+    return results;
   },
 };
 
@@ -61,4 +61,14 @@ export function groupBy(arr, keyFn) {
     acc[key].push(item);
     return acc;
   }, {});
+}
+
+function removeArabicTashkeel(word) {
+  // Regex pattern to match Arabic diacritical marks (tashkeel)
+  // Range includes Fathatan, Dammatan, Kasratan, Fatha, Damma, Kasra, Shadda, Sukun, etc.
+  const tashkeel_pattern =
+    /[\u064B-\u065F\u0670\u06D6-\u06DC\u06DF-\u06E4\u06E7-\u06E8\u06EA-\u06ED]/g;
+
+  // Replace all occurrences of tashkeel with an empty string
+  return word.replace(tashkeel_pattern, "").replace("ٱ", "ا");
 }

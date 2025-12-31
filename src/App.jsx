@@ -1,14 +1,18 @@
 import { useState, useEffect } from 'react'
 import './App.css'
 import { quranApi } from './utils/api'
+import { Search } from './components/search'
 
 function App() {
   const [pageNumber, setPageNumber] = useState(2)
   const [pageData, setPageData] = useState(null)
   const [page1, setPage1] = useState(null)
   const [fatihaActive, setFatihaActive] = useState(true)
+  const [highlightedVerse, setHighlightedVerse] = useState(null)
 
   useEffect(() => {
+    quranApi.getAll()
+
     quranApi.getByPage(pageNumber)
       .then((data) => setPageData(data))
     quranApi.getByPage(1)
@@ -72,7 +76,11 @@ function App() {
         </label>
       </div>
 
+
+
       <div className="quran-page">
+        <Search setPageNumber={setPageNumber} setHighlightedVerse={setHighlightedVerse} />
+
         <div className="verses">
           {page1 && pageData &&
             Object.keys(pageData).map((surah) => (
@@ -95,9 +103,12 @@ function App() {
                             <span className="verse-text">{fatihaVerse}</span>
                           </div>
                         }
-                        <div key={verse.number} className="verse">
+                        <div key={verse.number} className="verse"
+                          style={{
+                            color: highlightedVerse == verse.number ? "red" : undefined
+                          }}>
                           <span className="verse-text">{verse.numberInSurah == 1 ? verse.text.slice(40) : verse.text}</span>
-                          <span className="verse-number">﴿{verse.number}﴾</span>
+                          <span className="verse-number">﴿{verse.numberInSurah}﴾</span>
                         </div>
                       </>
                     )
