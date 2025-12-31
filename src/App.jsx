@@ -7,14 +7,17 @@ function App() {
   const [pageNumber, setPageNumber] = useState(2)
   const [pageData, setPageData] = useState(null)
   const [page1, setPage1] = useState(null)
+  const [loading, setLoading] = useState(false)
   const [fatihaActive, setFatihaActive] = useState(true)
   const [highlightedVerse, setHighlightedVerse] = useState(null)
 
   useEffect(() => {
     quranApi.getAll()
+    setLoading(true)
 
     quranApi.getByPage(pageNumber)
       .then((data) => setPageData(data))
+      .finally(() => setLoading(false))
     quranApi.getByPage(1)
       .then((data) => setPage1(data))
   }, [pageNumber])
@@ -81,6 +84,11 @@ function App() {
       <div className="quran-page">
         <Search setPageNumber={setPageNumber} setHighlightedVerse={setHighlightedVerse} />
 
+        {loading && (
+          <div className="loading-text" style={{ textAlign: "center", margin: "1rem", fontWeight: "bold" }}>
+            جاري التحميل...
+          </div>
+        )}
         <div className="verses">
           {page1 && pageData &&
             Object.keys(pageData).map((surah) => (

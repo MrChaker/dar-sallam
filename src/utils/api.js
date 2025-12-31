@@ -37,8 +37,6 @@ export const quranApi = {
         }
       });
     });
-    console.log(results);
-
     return results;
   },
 };
