@@ -21,6 +21,7 @@ export const quranApi = {
     // const response = await api.get(`/search/${query}`);
     let data = localStorage.getItem("quran-data");
     if (!data) data = await quranApi.getAll();
+    if (!data) return { text: "NETWORK ERROR" };
     const results = [];
     const { surahs } = JSON.parse(data);
     surahs.forEach((surah) => {
