@@ -13,7 +13,6 @@ function App() {
   const [highlightedVerse, setHighlightedVerse] = useState(null)
 
   useEffect(() => {
-    quranApi.getAll()
     setLoading(true)
 
     quranApi.getByPage(pageNumber)
@@ -117,7 +116,7 @@ function App() {
                           </div>
                         }
                         <div key={verse.number} className={`verse ${highlightedVerse == verse.number ? 'highlighted' : ''}`}>
-                          <span className="verse-text">{verse.numberInSurah == 1 ? verse.text.slice(40) : verse.text}</span>
+                          <span className="verse-text">{verse.numberInSurah == 1 ? verse.text.slice(39) : verse.text}</span>
                           <span className="verse-number">﴿{verse.numberInSurah}﴾</span>
                         </div>
                       </>

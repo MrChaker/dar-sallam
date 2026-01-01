@@ -209,7 +209,7 @@
 .filters {
   display: flex;
   direction: rtl;
-  align-items: center;
+  align-items: start;
   justify-content: space-between;
   width: 100%;
   gap: 1rem;

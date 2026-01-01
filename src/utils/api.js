@@ -1,29 +1,29 @@
-import axios from "axios";
+const STORAGE_KEY = "quran-data-v1";
 
-const api = axios.create({
-  baseURL: "https://alquran.api.islamic.network/v1",
-});
-
-// Initialize the client
 export const quranApi = {
-  getAll: async () => {
-    const data = localStorage.getItem("quran-data");
-    if (data) return data;
-    const response = await api.get(`/quran/ar`);
-    localStorage.setItem("quran-data", JSON.stringify(response.data.data));
-  },
   getByPage: async (pageNumber) => {
-    const response = await api.get(`/page/${pageNumber}`);
-    return groupBy(response.data.data.ayahs, (item) => item.surah.number);
+    const surahs = await getStoredData();
+    const res = [];
+
+    surahs.forEach((surah) => {
+      surah.ayahs.forEach((ayah) => {
+        if (ayah.page == pageNumber)
+          res.push({
+            ...ayah,
+            surah: {
+              number: surah.number,
+              name: surah.name,
+            },
+          });
+      });
+    });
+
+    return groupBy(res, (item) => item.surah.number);
   },
 
   search: async (query) => {
-    // const response = await api.get(`/search/${query}`);
-    let data = localStorage.getItem("quran-data");
-    if (!data) data = await quranApi.getAll();
-    if (!data) return { text: "NETWORK ERROR" };
+    const surahs = await getStoredData();
     const results = [];
-    const { surahs } = JSON.parse(data);
     surahs.forEach((surah) => {
       surah.ayahs.forEach((ayah) => {
         if (
@@ -41,11 +41,8 @@ export const quranApi = {
   },
 
   getSurahs: async () => {
-    let data = localStorage.getItem("quran-data");
-    if (!data) data = await quranApi.getAll();
-    if (!data) return { text: "NETWORK ERROR" };
+    const surahs = await getStoredData();
     const results = [];
-    const { surahs } = JSON.parse(data);
     surahs.forEach((surah) => {
       results.push({
         name: surah.name,
@@ -56,16 +53,20 @@ export const quranApi = {
   },
 };
 
-/**
- * Groups an array of items by a key callback.
- * @param {Array} arr - Array to group
- * @param {Function} keyFn - Function that returns the key for grouping
- * @returns {Object} - Grouped object
- *
- * Example:
- *   groupBy([{a:1, g:"x"}, {a:2, g:"y"}, {a:3, g:"x"}], item => item.g)
- *   // returns { x: [{a:1, g:"x"}, {a:3, g:"x"}], y: [{a:2, g:"y"}] }
- */
+const getStoredData = async () => {
+  let data = localStorage.getItem(STORAGE_KEY);
+  if (!data) {
+    const res = await fetch(`/quran.json`);
+    data = (await res.json()).data;
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  } else {
+    data = JSON.parse(data);
+  }
+  if (!data) return { text: "NETWORK ERROR" };
+  const { surahs } = data;
+  return surahs;
+};
+
 export function groupBy(arr, keyFn) {
   return arr.reduce((acc, item) => {
     const key = keyFn(item);

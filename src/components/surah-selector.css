@@ -1,7 +1,6 @@
 .surah-selector {
-  padding: 0.5rem;
+  padding: 12px;
   font-size: 1rem;
-  margin: 0.5rem 0;
   width: 25%;
   max-width: 300px;
   text-align: right;

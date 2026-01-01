@@ -33,7 +33,7 @@ export const Search = ({
       } finally {
         setSearchLoading(false)
       }
-    }, 500) // 500ms debounce delay
+    }, 1000) // 500ms debounce delay
 
     return () => clearTimeout(timeoutId)
   }, [searchQuery])
