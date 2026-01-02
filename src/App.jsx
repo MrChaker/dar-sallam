@@ -5,7 +5,7 @@ import { Search } from './components/search'
 import SurahSelector from './components/surah-selector'
 
 function App() {
-  const [pageNumber, setPageNumber] = useState(2)
+  const [pageNumber, setPageNumber] = useState(localStorage.getItem("pageNumber") ?? 2)
   const [pageData, setPageData] = useState(null)
   const [page1, setPage1] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -14,6 +14,7 @@ function App() {
 
   useEffect(() => {
     setLoading(true)
+    localStorage.setItem("pageNumber", pageNumber)
 
     quranApi.getByPage(pageNumber)
       .then((data) => setPageData(data))
