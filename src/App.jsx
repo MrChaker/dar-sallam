@@ -40,24 +40,6 @@ function App() {
     }
   }
 
-  async function forceDownload(url, filename) {
-    try {
-      const response = await fetch(url, { mode: 'cors' });
-      const blob = await response.blob();
-      const blobUrl = URL.createObjectURL(blob);
-
-      const a = document.createElement('a');
-      a.href = blobUrl;
-      a.download = filename || 'downloaded-file';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(blobUrl);
-    } catch (error) {
-      console.error('Download failed:', error);
-      window.location.href = url;
-    }
-  }
 
   return (
     <div className="app">
@@ -66,9 +48,9 @@ function App() {
           {/* <Pdf page1={page1} /> */}
           <button
             className="pdf-download-button"
-            onClick={() => forceDownload("/quran.pdf", "quran.pdf")}
           >
-            تحميل
+            <a href="https://drive.google.com/file/d/1yBEwe5uSxYJPz8f1WKoZu1LcLldEGTX0/view" style={{ textDecoration: "none", color: "inherit" }}>تحميل</a>
+
           </button>
           <div className="navigation">
             <button onClick={goToPreviousPage} disabled={pageNumber === 1}>
