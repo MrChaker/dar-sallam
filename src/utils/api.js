@@ -21,6 +21,31 @@ export const quranApi = {
     return groupBy(res, (item) => item.surah.number);
   },
 
+  groupAllByPage: async () => {
+    const surahs = await getStoredData();
+    const pages = {};
+
+    surahs.forEach((surah) => {
+      // [surahs[0], ...surahs.slice(110, 114)].forEach((surah) => {
+      surah.ayahs.forEach((ayah) => {
+        pages[ayah.page] = [
+          ...(pages[ayah.page] ?? []),
+          {
+            ...ayah,
+            surah: {
+              number: surah.number,
+              name: surah.name,
+            },
+          },
+        ];
+      });
+    });
+
+    return Object.keys(pages).map((key) =>
+      groupBy(pages[key], (item) => item.surah.number)
+    );
+  },
+
   search: async (query) => {
     const surahs = await getStoredData();
     const results = [];

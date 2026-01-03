@@ -8,19 +8,17 @@ function App() {
   const [pageNumber, setPageNumber] = useState(localStorage.getItem("pageNumber") ?? 2)
   const [pageData, setPageData] = useState(null)
   const [page1, setPage1] = useState(null)
-  const [loading, setLoading] = useState(false)
   const [fatihaActive, setFatihaActive] = useState(true)
   const [highlightedVerse, setHighlightedVerse] = useState(null)
 
-  useEffect(() => {
-    setLoading(true)
-    localStorage.setItem("pageNumber", pageNumber)
 
+  useEffect(() => {
+    localStorage.setItem("pageNumber", pageNumber)
     quranApi.getByPage(pageNumber)
       .then((data) => setPageData(data))
-      .finally(() => setLoading(false))
     quranApi.getByPage(1)
       .then((data) => setPage1(data))
+
   }, [pageNumber])
 
   const goToNextPage = () => {
@@ -42,31 +40,55 @@ function App() {
     }
   }
 
+  async function forceDownload(url, filename) {
+    try {
+      const response = await fetch(url, { mode: 'cors' });
+      const blob = await response.blob();
+      const blobUrl = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = blobUrl;
+      a.download = filename || 'downloaded-file';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(blobUrl);
+    } catch (error) {
+      console.error('Download failed:', error);
+      window.location.href = url;
+    }
+  }
+
   return (
     <div className="app">
-      <header className="header">
-        <h1>القرآن الكريم</h1>
-        <p>The Holy Quran</p>
-      </header>
-
-      <div className="navigation">
-        <button onClick={goToPreviousPage} disabled={pageNumber === 1}>
-          السابق
-        </button>
-        <div className="page-selector">
-          <label>الصفحة: </label>
-          <input
-            type="number"
-            min="1"
-            max="604"
-            value={pageNumber}
-            onChange={(e) => goToPage(e.target.value)}
-          />
-          <span> / 604</span>
+      <div className="header">
+        <div className='header-container'>
+          {/* <Pdf page1={page1} /> */}
+          <button
+            className="pdf-download-button"
+            onClick={() => forceDownload("/quran.pdf", "quran.pdf")}
+          >
+            تحميل
+          </button>
+          <div className="navigation">
+            <button onClick={goToPreviousPage} disabled={pageNumber === 1}>
+              السابق
+            </button>
+            <div className="page-selector">
+              <input
+                type="number"
+                min="1"
+                max="604"
+                value={pageNumber}
+                onChange={(e) => goToPage(e.target.value)}
+              />
+              <span>/ 604</span>
+            </div>
+            <button onClick={goToNextPage} disabled={pageNumber === 604}>
+              التالي
+            </button>
+          </div>
         </div>
-        <button onClick={goToNextPage} disabled={pageNumber === 604}>
-          التالي
-        </button>
       </div>
       <div className="fatiha-toggle-container">
         <label className="fatiha-toggle-label">
@@ -81,7 +103,6 @@ function App() {
       </div>
 
 
-
       <div className="quran-page">
 
         <div className="filters">
@@ -89,11 +110,6 @@ function App() {
           <SurahSelector setPageNumber={setPageNumber} />
         </div>
 
-        {loading && (
-          <div className="loading-text">
-            جاري التحميل...
-          </div>
-        )}
         <div className="verses">
           {page1 && pageData &&
             Object.keys(pageData).map((surah) => (

@@ -14,22 +14,17 @@
 }
 
 .header {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 2rem;
-  text-align: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
 }
-
-.header h1 {
-  font-size: 2.5rem;
-  margin-bottom: 0.5rem;
-  font-family: "Amiri Quran", serif;
-}
-
-.header p {
-  font-size: 1.2rem;
-  opacity: 0.9;
+.header-container {
+  max-width: 1000px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
 }
 
 .navigation {
@@ -38,8 +33,6 @@
   align-items: center;
   gap: 2rem;
   padding: 1rem;
-  background: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 10;
@@ -107,7 +100,7 @@
 }
 
 .verses {
-  margin: 2rem auto;
+  margin: 0 auto;
   padding: 1rem;
   background: white;
   border-radius: 12px;
@@ -121,6 +114,7 @@
   font-family: "Amiri Quran", serif;
   color: #2c3e50;
   padding: 1rem;
+  text-align: justify;
 }
 
 .verse {
@@ -213,6 +207,7 @@
   justify-content: space-between;
   width: 100%;
   gap: 1rem;
+  margin: 2rem 0;
 }
 
 .loading-text {
@@ -223,6 +218,129 @@
 
 .verse.highlighted {
   color: red;
+}
+
+.pdf-download-container {
+  margin: 1rem 0;
+  text-align: center;
+}
+
+.pdf-download-button {
+  padding: 0.75rem 1.5rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pdf-download-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.4);
+}
+
+.pdf-download-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.pdf-download-button-full {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+.pdf-download-link {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.pdf-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  width: 100%;
+}
+
+.pdf-download-controls {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  min-width: 300px;
+  align-items: center;
+}
+
+.pdf-pages-description {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+  text-align: center;
+  font-weight: 500;
+}
+
+.pdf-pages-inputs-container {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  direction: rtl;
+}
+
+.pdf-pages-label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.pdf-pages-input {
+  width: 100px;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  text-align: center;
+  outline: none;
+  transition: all 0.3s ease;
+  background: #f9f9f9;
+  font-weight: 500;
+}
+
+.pdf-pages-input:focus {
+  border-color: #667eea;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.pdf-pages-input:hover:not(:disabled) {
+  border-color: #667eea;
+  background: white;
+}
+
+.pdf-pages-input:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  background: #f0f0f0;
+}
+
+.pdf-pages-input::placeholder {
+  color: #999;
+  font-weight: 400;
 }
 
 @media (max-width: 768px) {
@@ -251,5 +369,10 @@
 
   .filters {
     flex-direction: column;
+  }
+
+  .pdf-download-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.75rem;
   }
 }
