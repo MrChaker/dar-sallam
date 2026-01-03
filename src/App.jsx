@@ -46,12 +46,12 @@ function App() {
       <div className="header">
         <div className='header-container'>
           {/* <Pdf page1={page1} /> */}
-          <button
-            className="pdf-download-button"
-          >
-            <a href="https://drive.google.com/file/d/1yBEwe5uSxYJPz8f1WKoZu1LcLldEGTX0/view" style={{ textDecoration: "none", color: "inherit" }}>تحميل</a>
 
-          </button>
+          <a href="https://drive.google.com/file/d/1yBEwe5uSxYJPz8f1WKoZu1LcLldEGTX0/view" style={{ textDecoration: "none", color: "inherit" }}>
+            <button className="pdf-download-button" >تحميل</button>
+          </a>
+
+
           <div className="navigation">
             <button onClick={goToPreviousPage} disabled={pageNumber === 1}>
               السابق
