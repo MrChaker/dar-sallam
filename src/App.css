@@ -49,6 +49,7 @@
   width: fit-content;
   display: inline;
   margin-left: 10px;
+  font-size: 1.1rem;
 }
 
 .verse-text {
@@ -200,6 +201,7 @@
 
   .popup {
     top: -50%;
+    font-size: 0.7rem;
   }
 
   .pdf-download-button {
