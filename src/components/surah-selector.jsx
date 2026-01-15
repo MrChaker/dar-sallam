@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { quranApi } from '../utils/api'
-import './surah-selector.css'
+import { Select } from './ui/select'
 
 const SurahSelector = ({ setPageNumber }) => {
   const [surahs, setSurahs] = useState([])
@@ -26,17 +26,18 @@ const SurahSelector = ({ setPageNumber }) => {
   }
 
   return (
-    <select
-      className="surah-selector"
+    <Select
       onChange={handleSurahChange}
+      dir="rtl"
+      className="w-full"
     >
-      <option value="">السورة</option>
+      <option value="">السور</option>
       {surahs.map((surah, i) => (
         <option key={i} value={surah.i}>
           {i + 1}. {surah.name}
         </option>
       ))}
-    </select>
+    </Select>
   )
 }
 

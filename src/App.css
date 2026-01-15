@@ -6,97 +6,13 @@
   box-sizing: border-box;
 }
 
-.app {
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-}
-
-.header {
-  align-items: center;
-  background: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 1rem;
-}
-.header-container {
-  max-width: 1000px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: auto;
-}
-
-.navigation {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  padding: 1rem;
-  position: sticky;
-  top: 0;
-  z-index: 10;
-}
-
-.navigation button {
-  padding: 0.75rem 1rem;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  font-weight: 600;
-}
-
-.navigation button:hover:not(:disabled) {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(102, 126, 234, 0.4);
-}
-
-.navigation button:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.page-selector {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 12px;
-  font-weight: 600;
-  color: #333;
-}
-
-.page-selector input {
-  width: 70px;
-  padding: 0.5rem;
-  font-size: 12px;
-  border: 2px solid #667eea;
-  border-radius: 6px;
-  text-align: center;
-}
-
 .quran-page {
   max-width: 1000px;
   margin: auto;
-
+  margin-top: 60px;
   display: flex;
   flex-direction: column;
   align-items: end;
-}
-
-.loading,
-.error {
-  text-align: center;
-  font-size: 1.5rem;
-  color: #666;
-  padding: 2rem;
-}
-
-.error {
-  color: #e74c3c;
 }
 
 .verses {
@@ -105,12 +21,14 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  min-height: 500px;
+  height: 90vh;
+  max-height: 90vh;
+  overflow-y: auto;
 
   text-align: right;
   direction: rtl;
   line-height: 3;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
   font-family: "Amiri Quran", serif;
   color: #2c3e50;
   padding: 1rem;
@@ -129,7 +47,6 @@
   box-shadow: 0 4px 24px rgba(102, 126, 234, 0.15);
   padding: 0px 11px;
   white-space: nowrap;
-  font-size: 12px;
   width: fit-content;
   display: inline;
   margin-left: 10px;
@@ -146,19 +63,6 @@
   font-weight: bold;
 }
 
-.footer {
-  background: #2c3e50;
-  color: white;
-  text-align: center;
-  padding: 1.5rem;
-  margin-top: auto;
-}
-
-.footer p {
-  margin: 0;
-  opacity: 0.9;
-}
-
 .surah-box {
   text-align: center;
   border: 1px solid #667eea;
@@ -167,62 +71,8 @@
   margin: 1rem 0;
 }
 
-.search {
-  display: flex;
-  flex-direction: column;
-  direction: rtl;
-  width: 75%;
-}
-
-.search input {
-  font-size: 1rem;
-  border-radius: 8px;
-  padding: 0.75rem;
-  border: 1.5px solid #667eea;
-  outline: none;
-  direction: rtl;
-}
-
-.fatiha-toggle-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem 0;
-}
-
-.fatiha-toggle-label {
-  font-size: 1rem;
-  font-weight: 600;
-  margin-right: 0.5rem;
-}
-
-.fatiha-toggle-checkbox {
-  margin-right: 0.3rem;
-}
-
-.filters {
-  display: flex;
-  direction: rtl;
-  align-items: start;
-  justify-content: space-between;
-  width: 100%;
-  gap: 1rem;
-  margin: 2rem 0;
-}
-
-.loading-text {
-  text-align: center;
-  margin: 1rem;
-  font-weight: bold;
-}
-
 .verse.highlighted {
   color: red;
-}
-
-.pdf-download-container {
-  margin: 1rem 0;
-  text-align: center;
 }
 
 .pdf-download-button {
@@ -250,11 +100,6 @@
 .pdf-download-button-full {
   width: 100%;
   margin-top: 0.5rem;
-}
-
-.pdf-download-link {
-  text-decoration: none;
-  display: inline-block;
 }
 
 .pdf-popup-overlay {
@@ -344,13 +189,8 @@
 }
 
 @media (max-width: 768px) {
-  .navigation {
-    gap: 1rem;
-    font-size: 12px;
-  }
-
   .quran-page {
-    margin: 0.5rem;
+    margin-inline: 0.5rem;
     padding: 0;
   }
 
@@ -361,14 +201,6 @@
 
   .popup {
     top: -50%;
-  }
-
-  .header h1 {
-    font-size: 2rem;
-  }
-
-  .filters {
-    flex-direction: column;
   }
 
   .pdf-download-button {
