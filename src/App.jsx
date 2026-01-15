@@ -23,54 +23,6 @@ function App() {
       .then((data) => setPage1(data))
   }, [pageNumber])
 
-  useEffect(() => {
-    const adjustFontSize = () => {
-      const versesDiv = versesRef.current
-      if (!versesDiv || !pageData || window.innerWidth > 768) return
-
-      // Set container height to 100vh
-      versesDiv.style.height = '90vh'
-      versesDiv.style.maxHeight = '90vh'
-
-      // Reset to initial font size
-      versesDiv.style.fontSize = '0.95rem'
-
-      // Wait for DOM to update
-      setTimeout(() => {
-        let fontSize = parseFloat(window.getComputedStyle(versesDiv).fontSize)
-        const containerHeight = versesDiv.clientHeight
-
-        // Check if content overflows and adjust font size
-        // Keep reducing font size until content fits or we reach minimum
-        while (versesDiv.scrollHeight > containerHeight && fontSize > 0.8) {
-          fontSize -= 0.05
-          versesDiv.style.fontSize = `${fontSize}rem`
-        }
-      }, 100)
-    }
-
-    // Adjust font size when page data changes
-    if (pageData) {
-      adjustFontSize()
-    }
-
-    // Adjust font size on window resize
-    const resizeObserver = new ResizeObserver(() => {
-      adjustFontSize()
-    })
-
-    if (versesRef.current) {
-      resizeObserver.observe(versesRef.current)
-    }
-
-    window.addEventListener('resize', adjustFontSize)
-
-    return () => {
-      resizeObserver.disconnect()
-      window.removeEventListener('resize', adjustFontSize)
-    }
-  }, [pageData, fatihaActive])
-
   const goToNextPage = () => {
     if (pageNumber < 604) {
       setPageNumber(pageNumber + 1)
@@ -142,7 +94,7 @@ function App() {
         setHighlightedVerse={setHighlightedVerse}
       />
 
-      <div className="quran-page ">
+      <div className="quran-page">
         <div className="verses" ref={versesRef}>
           {page1 && pageData &&
             Object.keys(pageData).map((surah) => (
