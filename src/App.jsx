@@ -4,7 +4,9 @@ import { quranApi } from './utils/api'
 import Sidebar from './components/sidebar'
 import { Button } from './components/ui/button'
 import { Input } from './components/ui/input'
-import { Search, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Search as SearchIcon, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Search } from './components/search'
+import SurahSelector from './components/surah-selector'
 
 function App() {
   const [pageNumber, setPageNumber] = useState(localStorage.getItem("pageNumber") ?? 2)
@@ -50,7 +52,7 @@ function App() {
           size="icon"
           onClick={() => setSidebarOpen(!sidebarOpen)}
         >
-          <Search className="h-6 w-6" />
+          <SearchIcon className="h-6 w-6" />
         </Button>
         <div className="flex items-center gap-1 absolute left-1/2 transform -translate-x-1/2">
           <Button
@@ -95,6 +97,12 @@ function App() {
       />
 
       <div className="quran-page">
+
+        <div className='hidden md:flex gap-2 my-8 w-full'>
+          <SurahSelector className='w-[25%]' setPageNumber={setPageNumber} />
+          <Search className='w-[75%]' setPageNumber={setPageNumber} setHighlightedVerse={setHighlightedVerse} />
+        </div>
+
         <div className="verses" ref={versesRef}>
           {page1 && pageData &&
             Object.keys(pageData).map((surah) => (

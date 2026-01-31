@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react'
 import { quranApi } from '../utils/api'
 import { Input } from './ui/input'
+import { cn } from '../lib/utils'
 
 export const Search = ({
   setPageNumber,
-  setHighlightedVerse
+  setHighlightedVerse,
+  className
 }) => {
   const [searchQuery, setSearchQuery] = useState("")
   const [searchResults, setSearchResults] = useState([])
@@ -38,7 +40,7 @@ export const Search = ({
   }, [searchQuery])
 
   return (
-    <div className="w-full space-y-2">
+    <div className={cn("w-full space-y-2", className)}>
       <Input
         type="text"
         placeholder="ابحث عن آية أو كلمة..."

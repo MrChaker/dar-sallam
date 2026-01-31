@@ -9,7 +9,7 @@
 .quran-page {
   max-width: 1000px;
   margin: auto;
-  margin-top: 60px;
+  margin-block: 60px;
   display: flex;
   flex-direction: column;
   align-items: end;
@@ -21,8 +21,6 @@
   background: white;
   border-radius: 12px;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-  height: 90vh;
-  max-height: 90vh;
   overflow-y: auto;
   text-align: right;
   direction: rtl;
@@ -195,8 +193,10 @@
   }
 
   .verses {
-    font-size: 0.9rem;
+    font-size: 1rem;
     padding: 1rem;
+    height: 90vh;
+    max-height: 90vh;
   }
 
   .popup {
